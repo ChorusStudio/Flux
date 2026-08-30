@@ -1,0 +1,61 @@
+{
+    "ambientocclusion": false,
+    "gui_light": "front",
+    "textures": {
+        "layer0": "flux:item/ui_plane_white_7"
+    },
+    "display": {
+        "fixed": {
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "translation": [
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                1,
+                1,
+                1
+            ]
+        }
+    },
+    "elements": [
+        {
+            "from": [
+                0,
+                0,
+                7.99
+            ],
+            "to": [
+                16,
+                16,
+                8.01
+            ],
+            "shade": false,
+            "faces": {
+                "north": {
+                    "uv": [
+                        0,
+                        0,
+                        16,
+                        16
+                    ],
+                    "texture": "#layer0"
+                },
+                "south": {
+                    "uv": [
+                        0,
+                        0,
+                        16,
+                        16
+                    ],
+                    "texture": "#layer0"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "flux",
+  "version": "${version}",
+  "name": "Flux",
+  "description": "Declarative server-side scenes, chest GUIs, and cinematic cameras for Fabric.",
+  "authors": [
+    "wiyuka",
+    "MSDNicrosoft"
+  ],
+  "contact": {
+    "homepage": "https://github.com/ChorusStudio/flux"
+  },
+  "license": "Apache-2.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "top.mythcraft.flux.FluxMod"
+      }
+    ]
+  },
+  "mixins": [
+    "flux.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "fabric-api": "*",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "minecraft": ">=${minecraft_version}"
+  }
+}
