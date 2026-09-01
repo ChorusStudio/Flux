@@ -1,6 +1,7 @@
 [versions]
 fabric-loom = "1.17-SNAPSHOT"
 kotlin = "2.4.10"
+detekt = "2.0.0-alpha.6"
 
 minecraft = "1.21.11"
 parchment = "2025.12.20"
@@ -13,8 +14,10 @@ junit-jupiter = "6.1.0"
 [plugins]
 fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 
 [libraries]
+detekt-formatting = { module = "dev.detekt:detekt-rules-ktlint-wrapper", version.ref = "detekt" }
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
 fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }

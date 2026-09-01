@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 plugins {
     alias(libs.plugins.fabric.loom)
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.detekt)
     `maven-publish`
 }
 
@@ -24,6 +25,8 @@ repositories {
 }
 
 dependencies {
+    detektPlugins(libs.detekt.formatting)
+
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.platform.launcher)
 
@@ -35,6 +38,13 @@ dependencies {
     modImplementation(libs.fabric.loader)
     modImplementation(libs.fabric.api)
     modImplementation(libs.fabric.language.kotlin)
+}
+
+detekt {
+    parallel = true
+    config.setFrom(file("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    autoCorrect = true
 }
 
 tasks {
