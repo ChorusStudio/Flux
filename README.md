@@ -28,6 +28,8 @@ Scene 部分衍生自 [FluxUI](https://github.com/wiyuka-owo/FluxUI)，已重写
 
 将仓库发布到 GitHub（`ChorusStudio/flux`）并打 tag 后，通过 [JitPack](https://jitpack.io) 引入。将 `<tag>` 替换为实际 git tag 或 commit SHA：
 
+[![](https://jitpack.io/v/ChorusStudio/Flux.svg)](https://jitpack.io/#ChorusStudio/Flux)
+
 ```kotlin
 repositories {
     maven("https://jitpack.io")
