@@ -1,5 +1,6 @@
 package top.mythcraft.flux.scene
 
+import net.minecraft.network.chat.FontDescription
 import net.minecraft.world.entity.Display
 import org.joml.Matrix4d
 import org.joml.Vector3d
@@ -57,6 +58,9 @@ object FluxNode {
         var scale = 0.45f
         var opacity = 255
         var align = Align.CENTER
+
+        /** 覆盖当前画布作用域的默认字体；为 null 时继承 [FluxCanvas.font]。 */
+        var font: FontDescription.Resource? = null
         override var billboard = Display.BillboardConstraints.FIXED
         override var seeThrough = false
         override var interpolationTicks = 0
@@ -103,6 +107,7 @@ object FluxNode {
     data class TextState(
         override val id: String,
         val text: String,
+        val font: FontDescription.Resource,
         val opacity: Int,
         val align: Align,
         override val transform: Matrix4d,

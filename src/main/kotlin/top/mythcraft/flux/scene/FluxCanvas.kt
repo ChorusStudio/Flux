@@ -1,5 +1,7 @@
 package top.mythcraft.flux.scene
 
+import net.minecraft.network.chat.FontDescription
+import net.minecraft.resources.Identifier
 import org.joml.Matrix4d
 import org.joml.Quaterniond
 import org.joml.Vector3d
@@ -18,6 +20,10 @@ class FluxCanvas {
     companion object {
         private val UNIT_Y = Vector3d(0.0, 1.0, 0.0)
         private val UNIT_Z = Vector3d(0.0, 0.0, 1.0)
+
+        /** 未在 [font] 中指定时，文本节点使用的默认字体。 */
+        val DEFAULT_FONT: FontDescription.Resource =
+            FontDescription.Resource(Identifier.withDefaultNamespace("default"))
 
         /**
          * 世界对齐的标准屏幕朝向（法线面向 `-Z`、上方为 `+Y`）
@@ -42,6 +48,7 @@ class FluxCanvas {
 
     private val idStack = ArrayDeque<String>()
     private val matrixStack = ArrayDeque<Matrix4d>()
+    private val fontStack = ArrayDeque<FontDescription.Resource>()
 
     private var microZ = 0f
     private var zStep = 0f
@@ -50,10 +57,30 @@ class FluxCanvas {
         nodes.clear()
         idStack.clear()
         matrixStack.clear()
+        fontStack.clear()
         matrixStack.addFirst(Matrix4d(base))
+        fontStack.addFirst(DEFAULT_FONT)
         microZ = 0f
         zStep = 0f
     }
+
+    /**
+     * 设置当前作用域内后续 [text] 的默认字体。
+     * 在 [group] 内调用时仅影响该组及其子组，直到组结束。
+     */
+    fun font(font: FontDescription.Resource) {
+        fontStack.removeFirst()
+        fontStack.addFirst(font)
+    }
+
+    /** 在 [block] 内使用指定字体，结束后恢复外层默认字体。 */
+    fun font(font: FontDescription.Resource, block: FluxCanvas.() -> Unit) {
+        fontStack.addFirst(font)
+        block()
+        fontStack.removeFirst()
+    }
+
+    private fun currentFont(): FontDescription.Resource = fontStack.first()
 
     /** 设置后续节点的 z 分层步长：每声明一个节点 z 自动累加一次 [z]，用于避免共面内容 Z-Fighting */
     fun zStep(z: Float) {
@@ -81,7 +108,9 @@ class FluxCanvas {
     fun group(id: String, block: FluxCanvas.() -> Unit) {
         idStack.addLast(id)
         matrixStack.addFirst(Matrix4d(current()))
+        fontStack.addFirst(currentFont())
         block()
+        fontStack.removeFirst()
         matrixStack.removeFirst()
         idStack.removeLast()
     }
@@ -106,6 +135,7 @@ class FluxCanvas {
         nodes[full] = FluxNode.TextState(
             id = full,
             text = text,
+            font = n.font ?: currentFont(),
             opacity = n.opacity.coerceIn(0, 255),
             align = n.align,
             transform = current().composed(local),

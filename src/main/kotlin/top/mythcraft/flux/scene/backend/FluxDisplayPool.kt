@@ -2,7 +2,6 @@ package top.mythcraft.flux.scene.backend
 
 import com.mojang.math.Transformation
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.FontDescription
 import net.minecraft.network.chat.Style
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.Brightness
@@ -12,7 +11,6 @@ import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.phys.Vec3
 import org.joml.*
-import top.mythcraft.flux.FluxModReference
 import top.mythcraft.flux.scene.FluxColor
 import top.mythcraft.flux.scene.FluxNode
 import java.util.UUID
@@ -43,7 +41,6 @@ class FluxDisplayPool(
         private val ITEM_PLANE_BRIGHTNESS = Brightness(7, 7) // 世界里的半透明平面用较低亮度
 
         private val BLANK: Component = Component.literal(" ")
-        private val FONT: FontDescription.Resource get() = FontDescription.Resource(FluxModReference.idOf("default"))
 
         private val HIDDEN: Matrix4d = Matrix4d().scale(0.0, 0.0, 0.0)
     }
@@ -233,7 +230,7 @@ class FluxDisplayPool(
     }
 
     private fun applyText(display: Display.TextDisplay, state: FluxNode.TextState) {
-        display.text = Component.literal(state.text).withStyle(Style.EMPTY.withFont(FONT))
+        display.text = Component.literal(state.text).withStyle(Style.EMPTY.withFont(state.font))
         var flags = when (state.align) {
             FluxNode.Align.LEFT -> Display.TextDisplay.FLAG_ALIGN_LEFT
             FluxNode.Align.RIGHT -> Display.TextDisplay.FLAG_ALIGN_RIGHT
