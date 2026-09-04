@@ -1,2 +1,4 @@
-jdk:
-  - openjdk25
+before_install:
+  - sdk update
+  - sdk install java 25-open
+  - sdk use java 25-open
