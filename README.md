@@ -20,8 +20,8 @@ Scene 部分衍生自 [FluxUI](https://github.com/wiyuka-owo/FluxUI)，已重写
 
 ## 环境要求
 
-* **Minecraft**：1.21.11
-* **Java**：21
+* **Minecraft**：26.2
+* **Java**：25
 * **依赖**：Fabric Loader、Fabric API、`fabric-language-kotlin`
 
 ## 集成
