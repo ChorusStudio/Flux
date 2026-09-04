@@ -70,7 +70,7 @@ internal object FluxPlaneMaterial {
                 best = e
             }
         }
-        return ItemStack(Items.WHITE_STAINED_GLASS_PANE).apply {
+        return ItemStack(Items.STAINED_GLASS_PANE.white).apply {
             set(DataComponents.ITEM_MODEL, FluxModReference.idOf("ui_plane_${best.name}_$alphaLevel"))
         }
     }

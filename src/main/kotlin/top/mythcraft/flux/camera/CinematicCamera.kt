@@ -3,7 +3,7 @@ package top.mythcraft.flux.camera
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.EntityTypes
 import net.minecraft.world.entity.ambient.Bat
 import java.util.*
 
@@ -29,7 +29,7 @@ class CinematicCamera(
         const val CAMERA_BAT_TAG = "flux_camera_bat"
     }
 
-    val entity: Bat = Bat(EntityType.BAT, level).apply {
+    val entity: Bat = Bat(EntityTypes.BAT, level).apply {
         setPos(initialPose.pos)
         yRot = initialPose.yaw
         xRot = initialPose.pitch

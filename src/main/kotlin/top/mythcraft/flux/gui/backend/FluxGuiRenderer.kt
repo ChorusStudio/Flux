@@ -58,7 +58,7 @@ class FluxGuiRenderer(
         lastWidgets.putAll(frame.widgets)
     }
 
-    private fun handleClick(slotId: Int, button: Int, type: ClickType) {
+    private fun handleClick(slotId: Int, button: Int, type: ContainerInput) {
         if (slotId in unlockedSlots || slotId in gui.excludedSlots) return
         if (slotId !in 0 until container.containerSize) return
         val now = System.currentTimeMillis()
@@ -73,17 +73,17 @@ class FluxGuiRenderer(
         containerId: Int,
         inventory: Inventory
     ) : ChestMenu(menuType(rows), containerId, inventory, this@FluxGuiRenderer.container, rows) {
-        override fun clicked(slotId: Int, button: Int, clickType: ClickType, player: Player) {
+        override fun clicked(slotId: Int, button: Int, containerInput: ContainerInput, player: Player) {
             if (slotId in unlockedSlots) {
-                super.clicked(slotId, button, clickType, player)
+                super.clicked(slotId, button, containerInput, player)
                 return
             }
             if (slotId in 0 until this@FluxGuiRenderer.container.containerSize) {
-                handleClick(slotId, button, clickType)
+                handleClick(slotId, button, containerInput)
                 gui.render()
                 return
             }
-            super.clicked(slotId, button, clickType, player)
+            super.clicked(slotId, button, containerInput, player)
         }
 
         override fun quickMoveStack(player: Player, index: Int): ItemStack = ItemStack.EMPTY

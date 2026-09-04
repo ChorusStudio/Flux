@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Style
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.Brightness
 import net.minecraft.world.entity.Display
-import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.EntityTypes
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.phys.Vec3
@@ -153,7 +153,7 @@ class FluxDisplayPool(
     }
 
     private fun createText(): Display.TextDisplay {
-        val display = Display.TextDisplay(EntityType.TEXT_DISPLAY, level).apply {
+        val display = Display.TextDisplay(EntityTypes.TEXT_DISPLAY, level).apply {
             brightnessOverride = HUD_BRIGHTNESS
             viewRange = VIEW_RANGE
             posRotInterpolationDuration = 0
@@ -163,7 +163,7 @@ class FluxDisplayPool(
     }
 
     private fun createItem(): Display.ItemDisplay {
-        val display = Display.ItemDisplay(EntityType.ITEM_DISPLAY, level).apply {
+        val display = Display.ItemDisplay(EntityTypes.ITEM_DISPLAY, level).apply {
             brightnessOverride = ITEM_PLANE_BRIGHTNESS
             itemTransform = ItemDisplayContext.FIXED
             viewRange = VIEW_RANGE
@@ -320,24 +320,25 @@ class FluxDisplayPool(
         var newT = Transformation(Matrix4f(target))
         val oldT = transformCache[display]
         if (useZHack && oldT != null) {
-            val oldRight = Quaternionf(oldT.rightRotation)
-            val newRight = Quaternionf(newT.rightRotation)
+            val oldRight = Quaternionf(oldT.rightRotation())
+            val newRight = Quaternionf(newT.rightRotation())
             val change = Quaternionf(oldRight).difference(newRight)
             val euler = change.getEulerAnglesXYZ(Vector3f())
             if (abs(euler.z) >= ANGLE_45_RAD) {
                 val rot = ANGLE_90_RAD * sign(euler.z)
-                val left = Quaternionf(newT.leftRotation).apply { rotateZ(-rot) }
-                val scale = Vector3f(newT.scale).apply { set(y, x, z) }
-                val right = Quaternionf(newT.rightRotation).apply { rotateZ(rot) }
-                newT = Transformation(newT.translation, left, scale, right)
+                val left = Quaternionf(newT.leftRotation()).apply { rotateZ(-rot) }
+                val scale = Vector3f(newT.scale()).apply { set(y, x, z) }
+                val right = Quaternionf(newT.rightRotation()).apply { rotateZ(rot) }
+                newT = Transformation(newT.translation(), left, scale, right)
             }
         }
         if (oldT == null || newT != oldT) {
-            val ticks = if (oldT == null || oldT.translation.distanceSquared(newT.translation) > SNAP_TRANSLATION_SQ) {
-                0
-            } else {
-                interpTicks
-            }
+            val ticks =
+                if (oldT == null || oldT.translation().distanceSquared(newT.translation()) > SNAP_TRANSLATION_SQ) {
+                    0
+                } else {
+                    interpTicks
+                }
             display.transformationInterpolationDuration = ticks
             display.setTransformation(newT)
             display.transformationInterpolationDelay = 0

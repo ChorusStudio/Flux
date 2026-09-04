@@ -30,7 +30,7 @@ public abstract class ServerCommonPacketListenerImplMixin implements ServerCommo
             at = @At("HEAD"),
             cancellable = true
     )
-    public void flux$onSendPacket(Packet<?> packet, @Nullable ChannelFutureListener sendListener, CallbackInfo ci) {
+    public void flux$onSendPacket(Packet<?> packet, @Nullable ChannelFutureListener listener, CallbackInfo ci) {
         ServerPlayer player = this.server.getPlayerList().getPlayer(this.getOwner().id());
         if (player == null) {
             return;

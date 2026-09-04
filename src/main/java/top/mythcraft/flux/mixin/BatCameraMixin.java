@@ -18,7 +18,7 @@ public abstract class BatCameraMixin extends Entity {
 
     @Inject(method = "customServerAiStep", at = @At("HEAD"), cancellable = true)
     private void flux$lobotomizeCameraBat(CallbackInfo ci) {
-        if (this.getTags().contains(CinematicCamera.CAMERA_BAT_TAG)) {
+        if (this.entityTags().contains(CinematicCamera.CAMERA_BAT_TAG)) {
             ci.cancel();
         }
     }

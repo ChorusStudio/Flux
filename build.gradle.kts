@@ -19,9 +19,6 @@ repositories {
     mavenCentral()
     maven("https://libraries.minecraft.net/")
     maven("https://maven.fabricmc.net/")
-    maven("https://maven.parchmentmc.org") {
-        content { includeGroup("org.parchmentmc.data") }
-    }
 }
 
 dependencies {
@@ -31,13 +28,10 @@ dependencies {
     testRuntimeOnly(libs.junit.platform.launcher)
 
     minecraft(libs.minecraft)
-    mappings(@Suppress("UnstableApiUsage") loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${libs.versions.minecraft.get()}:${libs.versions.parchment.get()}@zip")
-    })
-    modImplementation(libs.fabric.loader)
-    modImplementation(libs.fabric.api)
-    modImplementation(libs.fabric.language.kotlin)
+
+    implementation(libs.fabric.loader)
+    implementation(libs.fabric.api)
+    implementation(libs.fabric.language.kotlin)
 }
 
 detekt {
@@ -64,11 +58,11 @@ tasks {
     }
     compileJava {
         options.encoding = "UTF-8"
-        options.release = 21
+        options.release = 25
     }
     withType<KotlinJvmCompile>().configureEach {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_21
+            jvmTarget = JvmTarget.JVM_25
         }
     }
     jar {
@@ -81,8 +75,8 @@ tasks {
 
 java {
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 publishing {

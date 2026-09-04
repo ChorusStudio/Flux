@@ -1,6 +1,6 @@
 package top.mythcraft.flux.gui
 
-import net.minecraft.world.inventory.ClickType
+import net.minecraft.world.inventory.ContainerInput
 import net.minecraft.world.item.ItemStack
 
 /** 槽位声明的组件 */
@@ -57,13 +57,13 @@ class ClickHandlers {
         shiftRight { onDelta(-shiftStep) }
     }
 
-    fun dispatch(type: ClickType, button: Int) {
+    fun dispatch(type: ContainerInput, button: Int) {
         onAny?.invoke()
         when (type) {
-            ClickType.PICKUP if button == 0 -> onLeft?.invoke()
-            ClickType.PICKUP if button == 1 -> onRight?.invoke()
-            ClickType.QUICK_MOVE if button == 0 -> onShiftLeft?.invoke()
-            ClickType.QUICK_MOVE if button == 1 -> onShiftRight?.invoke()
+            ContainerInput.PICKUP if button == 0 -> onLeft?.invoke()
+            ContainerInput.PICKUP if button == 1 -> onRight?.invoke()
+            ContainerInput.QUICK_MOVE if button == 0 -> onShiftLeft?.invoke()
+            ContainerInput.QUICK_MOVE if button == 1 -> onShiftRight?.invoke()
             else -> {}
         }
     }
