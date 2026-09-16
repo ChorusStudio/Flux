@@ -37,7 +37,7 @@ class FollowAndLookTask(
                 maxSpeed = maxSpeed,
                 factor = speedMultiplier
             )
-            bat.hurtMarked = true
+            bat.syncVelocity = true
         } else {
             bat.deltaMovement = Vec3.ZERO
         }

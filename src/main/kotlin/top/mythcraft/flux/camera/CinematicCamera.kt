@@ -36,7 +36,7 @@ class CinematicCamera(
         yBodyRot = initialPose.yaw
         yHeadRot = initialPose.yaw
         isNoGravity = true
-        isInvulnerable = true
+        isPermanentlyInvulnerable = true
         isNoAi = true
         isSilent = true
         isResting = false

@@ -1,5 +1,6 @@
 package top.mythcraft.flux.gui.backend
 
+import net.minecraft.util.Prediction
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -37,7 +38,7 @@ class FluxGuiRenderer(
             val leftover = container.getItem(slot)
             if (!leftover.isEmpty) {
                 container.setItem(slot, ItemStack.EMPTY)
-                gui.player.inventory.placeItemBackInInventory(leftover)
+                gui.player.inventory.placeItemBackInInventory(leftover, Prediction.SERVER_ONLY)
             }
         }
 

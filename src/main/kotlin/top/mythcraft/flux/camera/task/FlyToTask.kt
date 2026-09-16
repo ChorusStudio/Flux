@@ -57,7 +57,7 @@ class FlyToTask(
             target = currentPos,
             maxSpeed = maxSpeed
         )
-        camera.entity.hurtMarked = true
+        camera.entity.syncVelocity = true
 
         if (lookAtTarget != null) {
             val lookAt = lookAtTarget.invoke()
