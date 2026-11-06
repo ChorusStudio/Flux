@@ -1,6 +1,6 @@
 [versions]
 fabric-loom = "1.17-SNAPSHOT"
-kotlin = "2.4.20"
+kotlin = "2.4.21"
 detekt = "2.0.0-alpha.6"
 
 minecraft = "26.3"
