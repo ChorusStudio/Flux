@@ -5,7 +5,7 @@ detekt = "2.0.0-alpha.6"
 
 minecraft = "26.3"
 fabric-loader = "0.20.1"
-fabric-api = "0.160.5+26.3"
+fabric-api = "0.166.2+26.4"
 fabric-language-kotlin = "1.14.2+kotlin.2.4.21"
 
 junit-jupiter = "6.1.3"
